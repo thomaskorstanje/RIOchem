@@ -118,6 +118,21 @@ pwc <- data.frame(date=as.Date(NEONprecipitationchem$wdp_chemLab$collectDate),
 
 SITEall <- left_join(SITEall, pwc, by = "date")
 #------------------------------------------------------------------------------------- molarity ----
+elements <- c("Br", "Ca", "Cl", "CO3", "DIC", "DOC", "F", "Fe", "HCO3", "K", "Mg", "Mn", "Na", "NH4 - N", "NO2 - N", "NO3+NO2 - N", "Ortho - P", "ANC", "pH", "Si", "SO4")
+molarity <- c(79.904,	40.078,	35.45,	60.008,	12.011,	12.011,	18.998,	55.845,	61.016,	39.098,	24.305,	54.938,	22.99,	18.039,	46.005,	108.009,	30.974,	NA,	NA,	28.085,	96.056)
+mol <- data.frame(elements = elements, molarity = molarity)
+
+molALL <- SITEall
+# Loop through each analyte column in the combined data
+for (element in elements) {
+  # Extract the molarity for the current element
+  current_molarity <- mol[mol$elements == element, "molarity"]
+  
+  # Multiply the values in the corresponding column by the molarity
+  molALL[element] <- (molALL[element] / current_molarity) * 1000 
+  
+}
+
 
 #------------------------------------------------------------------------------------- condition flags ----
 #WIP 
@@ -129,5 +144,8 @@ selcol <- c("numdate", "date", "maxQ", "daily_precip" )
 SITEall <- SITEall %>%
   select(all_of(selcol), everything())
 
-write.csv(SITEall, "~/Desktop/SITEall.csv", row.names = FALSE)
+#------------------------------------------------------------------------------------- file write ----
+write.csv(SITEall, file = paste0("~/Desktop/", USERsite, "all.csv"), row.names = FALSE)
+
+write.csv(molALL, file = paste0("~/Desktop/", USERsite, "mol.csv"), row.names = FALSE)
 
