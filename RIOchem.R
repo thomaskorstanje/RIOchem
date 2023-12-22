@@ -6,7 +6,7 @@ library(tidyverse)
 #NEON packages
 library(neonUtilities)
 library(neonOS)
-#----------------------------- location and date----
+#------------------------------------------------------------------------------------- location and date----
 # Prompt the user for a four-letter location code
 user_site <- readline
 (prompt <- "Enter the four-letter site code (example:CUPE): ")
@@ -15,7 +15,7 @@ user_site <- readline
 user_startdate <- readline(prompt = "Enter start date (YYYY-MM): ")
 user_enddate <- readline(prompt = "Enter end date (YYYY-MM): ")
 
-#-------------------------------- data downloads ----
+#------------------------------------------------------------------------------------- data downloads ----
 #surface water chemistry data for 2018-2022
 NEONsurfacewaterchem <- loadByProduct(dpID = "DP1.20093.001",
                                       site =c(USERsite),
