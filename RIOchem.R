@@ -8,8 +8,7 @@ library(neonUtilities)
 library(neonOS)
 #------------------------------------------------------------------------------------- location and date----
 # Prompt the user for a four-letter location code
-user_site <- readline
-(prompt <- "Enter the four-letter site code (example:CUPE): ")
+user_site <- readline(prompt <- "Enter the four-letter site code (example:CUPE): ")
 
 # Prompt the user for a date
 user_startdate <- readline(prompt = "Enter start date (YYYY-MM): ")
@@ -18,31 +17,31 @@ user_enddate <- readline(prompt = "Enter end date (YYYY-MM): ")
 #------------------------------------------------------------------------------------- data downloads ----
 #surface water chemistry data for 2018-2022
 NEONsurfacewaterchem <- loadByProduct(dpID = "DP1.20093.001",
-                                      site =c(USERsite),
-                                      startdate = USERstartdate,
-                                      enddate = USERenddate,
+                                      site =c(user_site),
+                                      startdate = user_startdate,
+                                      enddate = user_enddate,
                                       tabl= "swc_externalLabDataByAnalyte",
                                       check.size = FALSE)
 
 #continuous discharge data for 2018-2022
 NEONcontinuousDischarge <- loadByProduct(dpID = "DP4.00130.001",
-                                         site =c(USERsite),
-                                         startdate = USERstartdate,
-                                         enddate = USERenddate,
+                                         site =c(user_site),
+                                         startdate = user_startdate,
+                                         enddate = user_enddate,
                                          tabl= "csd_continuousDischarge",
                                          check.size = FALSE)
 #precipitation data for 2018-2022
 NEONprecipitation <- loadByProduct(dpID = "DP1.00006.001",
-                                   site =c(USERsite),
-                                   startdate = USERstartdate,
-                                   enddate = USERenddate,
+                                   site =c(user_site),
+                                   startdate = user_startdate,
+                                   enddate = user_enddate,
                                    tabl= "SECPRE_1min",
                                    check.size = FALSE)
 #precipitation chemistry data for 2018-2022
 NEONprecipitationchem <- loadByProduct(dpID = "DP1.00013.001",
-                                       site =c(USERsite),
-                                       startdate = USERstartdate,
-                                       enddate = USERenddate,
+                                       site =c(user_site),
+                                       startdate = user_startdate,
+                                       enddate = user_enddate,
                                        tabl= "wdp_chemLab",
                                        check.size = FALSE)
 #------------------------------------------------------------------------------------- surface water chemistry ----
@@ -133,7 +132,7 @@ for (element in elements) {
   molALL[element] <- (molALL[element] / current_molarity) * 1000 
 }
 #------------------------------------------------------------------------------------- condition flags ----
-#WIP 
+#condition <- data.frame(date = as.Date(NEONsurfacewaterchem$swc_externalLabDataByAnalyte$))
 #------------------------------------------------------------------------------------- additional modifications ----
 SITEall$numdate <- yday(SITEall$date)
 
@@ -143,6 +142,6 @@ SITEall <- SITEall %>%
   select(all_of(selcol), everything())
 
 #------------------------------------------------------------------------------------- file write ----
-write.csv(SITEall, file = paste0("~/Desktop/", USERsite, "all.csv"), row.names = FALSE)
+write.csv(SITEall, file = paste0("~/Desktop/", user_site, "all.csv"), row.names = FALSE)
 
-write.csv(molALL, file = paste0("~/Desktop/", USERsite, "mol.csv"), row.names = FALSE)
+write.csv(molALL, file = paste0("~/Desktop/", user_site, "mol.csv"), row.names = FALSE)
