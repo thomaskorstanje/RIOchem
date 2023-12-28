@@ -3,7 +3,6 @@
 #lintr : skip-file
 
 library(tidyverse)
-#NEON packages
 library(neonUtilities)
 #------------------------------------------------------------------------------------- location and date----
 # Prompt the user for a four-letter location code
@@ -117,6 +116,18 @@ pwc <- data.frame(date = as.Date(NEONprecipitationchem$wdp_chemLab$collectDate),
                   pBr = NEONprecipitationchem$wdp_chemLab$precipBromide)
 
 SITEall <- left_join(SITEall, pwc, by = "date")
+
+#------------------------------------------------------------------------------------- condition flags ----
+#condition <- data.frame(date = as.Date(NEONsurfacewaterchem$swc_externalLabDataByAnalyte$))
+#------------------------------------------------------------------------------------- additional modifications ----
+SITEall$numdate <- yday(SITEall$date) #adds numeric date
+SITEall$year <- format(SITEall$date, "%Y") #adds year for easier graphing
+
+selcol <- c("numdate", "year", "date", "maxQ", "daily_precip" ) #brings important columns to front
+
+SITEall <- SITEall %>%
+  select(all_of(selcol), everything())
+ 
 #------------------------------------------------------------------------------------- molarity ----
 elements <- c("Br", "Ca", "Cl", "CO3", "DIC", "DOC", "F", "Fe", "HCO3", "K", "Mg", "Mn", "Na", "NH4 - N", "NO2 - N", "NO3+NO2 - N", "Ortho - P", "ANC", "pH", "Si", "SO4")
 molarity <- c(79.904,	40.078,	35.45,	60.008,	12.011,	12.011,	18.998,	55.845,	61.016,	39.098,	24.305,	54.938,	22.99,	18.039,	46.005,	108.009,	30.974,	NA,	NA,	28.085,	96.056)
@@ -130,16 +141,11 @@ for (element in elements) {
   # Multiply the values in the corresponding column by the molarity
   molALL[element] <- (molALL[element] / current_molarity) * 1000 
 }
-#------------------------------------------------------------------------------------- condition flags ----
-#condition <- data.frame(date = as.Date(NEONsurfacewaterchem$swc_externalLabDataByAnalyte$))
-#------------------------------------------------------------------------------------- additional modifications ----
-SITEall$numdate <- yday(SITEall$date)
+#------------------------------------------------------------------------------------- chemical weathering ----
+weathering <- data.frame(date = SITEall$date, numdate = SITEall$numdate)
 
-selcol <- c("numdate", "date", "maxQ", "daily_precip" )
-
-SITEall <- SITEall %>%
-  select(all_of(selcol), everything())
-
+weathering$date <- weathering$date %>%
+  mutate(year_month = format(date, "%Y-%M"))
 #------------------------------------------------------------------------------------- file write ----
 write.csv(SITEall, file = paste0("~/Desktop/", user_site, "all.csv"), row.names = FALSE)
 
