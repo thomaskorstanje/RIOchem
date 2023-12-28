@@ -5,7 +5,6 @@
 library(tidyverse)
 #NEON packages
 library(neonUtilities)
-library(neonOS)
 #------------------------------------------------------------------------------------- location and date----
 # Prompt the user for a four-letter location code
 user_site <- readline(prompt <- "Enter the four-letter site code (example:CUPE): ")
