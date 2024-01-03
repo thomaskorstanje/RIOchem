@@ -2,6 +2,7 @@
  River chemistry for Puerto Rican NEON rivers 
 
 @thomaskorstanje --- Olsen Lab, University of Maine, Earth and Climate Sciences
+
 For use with NEON (https://www.neonscience.org/) data. 
 
 Prompts user for NEON site code, start date and end date and then compiles data into a csv that includes;surface water chemistry, daily average discharge, daily precipitation accumulation, precipitation chemistry and conversion of surface water chemistry to umol/l 
