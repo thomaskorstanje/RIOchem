@@ -142,10 +142,10 @@ for (element in elements) {
   molALL[element] <- (molALL[element] / current_molarity) * 1000 
 }
 #------------------------------------------------------------------------------------- chemical weathering ----
-weathering <- data.frame(date = SITEall$date, numdate = SITEall$numdate)
+#weathering <- data.frame(date = SITEall$date, numdate = SITEall$numdate)
 
-weathering$date <- weathering$date %>%
-  mutate(year_month = format(date, "%Y-%M"))
+#weathering$date <- weathering$date %>%
+  #mutate(year_month = format(date, "%Y-%M"))
 #------------------------------------------------------------------------------------- file write ----
 write.csv(SITEall, file = paste0("~/Desktop/", user_site, "all.csv"), row.names = FALSE)
 
