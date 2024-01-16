@@ -9,7 +9,7 @@ space <- function(x) {
   gsub("^(\\d)", "  \\1", x)
 }
 
-cwdata <- read.csv("~/Desktop/EGL wd/cwdata.csv")
+cwdata <- read.csv("~/Desktop/EGL wd/GUIL Data/cwdatav2.csv")
 
 cwdate <- ggplot(cwdata, aes(x = numdate, y = CW, color = as.factor(year), shape = as.factor(year))) +
   geom_point() +
@@ -18,7 +18,7 @@ cwdate <- ggplot(cwdata, aes(x = numdate, y = CW, color = as.factor(year), shape
        y = "Chemical Weathering Flux (tons/km2/yr)",
        color = "year") +
   scale_shape_manual(values = c(19, 23, 17, 25, 15)) +
-  scale_color_manual(values = c("#d44446", "#e97bb2", "#f89d44", "#e7c416", "#a2d142")) +
+  scale_color_manual(values = c("#d44446", "#e97bb2","#e7c416","#f89d44", "#a2d142")) +
   geom_vline(xintercept = seq(30, max(cwdata$numdate), by = 30), linetype = "dashed", color = "gray", alpha = 0.5) +
   scale_x_continuous(breaks = seq(0, 360, by = 30)) +
   scale_y_continuous(breaks = seq(0, 600.0, by = 200.0), labels = space(seq(0, 600.0, by = 200.0))) +
@@ -36,7 +36,7 @@ qdate <- ggplot(cwdata, aes (x = numdate, y = Q, color = as.factor(year), shape 
        y = "Discharge (L/s)",
        color = "year") +
   scale_shape_manual(values = c(19, 23, 17, 25, 15)) +
-  scale_color_manual(values = c("#d44446","#e97bb2", "#f89d44", "#e7c416", "#a2d142")) +
+  scale_color_manual(values = c("#d44446","#e97bb2", "#e7c416", "#f89d44", "#a2d142")) +
   geom_vline(xintercept = seq(30, max(cwdata$numdate), by = 30), linetype = "dashed", color = "gray", alpha = 0.5) +
   scale_x_continuous(breaks = seq(0, 360, by = 30), position = "top") +
    guides(
