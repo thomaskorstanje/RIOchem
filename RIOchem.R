@@ -19,6 +19,7 @@ NEONsurfacewaterchem <- loadByProduct(dpID = "DP1.20093.001",
                                       startdate = user_startdate,
                                       enddate = user_enddate,
                                       tabl= "swc_externalLabDataByAnalyte",
+                                      include.provisional = TRUE,
                                       check.size = FALSE)
 
 #continuous discharge data for 2018-2022
@@ -27,6 +28,7 @@ NEONcontinuousDischarge <- loadByProduct(dpID = "DP4.00130.001",
                                          startdate = user_startdate,
                                          enddate = user_enddate,
                                          tabl= "csd_continuousDischarge",
+                                         include.provisional = TRUE,
                                          check.size = FALSE)
 #precipitation data for 2018-2022
 NEONprecipitation <- loadByProduct(dpID = "DP1.00006.001",
@@ -34,6 +36,7 @@ NEONprecipitation <- loadByProduct(dpID = "DP1.00006.001",
                                    startdate = user_startdate,
                                    enddate = user_enddate,
                                    tabl= "SECPRE_1min",
+                                   include.provisional = TRUE,
                                    check.size = FALSE)
 #precipitation chemistry data for 2018-2022
 NEONprecipitationchem <- loadByProduct(dpID = "DP1.00013.001",
@@ -41,6 +44,7 @@ NEONprecipitationchem <- loadByProduct(dpID = "DP1.00013.001",
                                        startdate = user_startdate,
                                        enddate = user_enddate,
                                        tabl= "wdp_chemLab",
+                                       include.provisional = TRUE,
                                        check.size = FALSE)
 #------------------------------------------------------------------------------------- surface water chemistry ----
 #allchemraw - surface water chemistry 
